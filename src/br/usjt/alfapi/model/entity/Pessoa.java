@@ -1,6 +1,6 @@
 package br.usjt.alfapi.model.entity;
 
-public class Pessoa {
+public class Pessoa extends Azure{
 
 	
 	//atributos
@@ -10,11 +10,43 @@ public class Pessoa {
 	private String rg;
 	private String email;
 	private String telResidencial;
-	private int codAzure;
+	private Endereco endereco;	
+		
+	
+/*	private String dataNasc;
+	
+	public String getDataNasc() {
+		return dataNasc;
+	}
+	public void setDataNasc(String dataNasc) {
+		this.dataNasc = dataNasc;
+	}
+	
+	Obs.: Fazer toString de data de nascimento, caso prof. aceite
+	*/
+	
+	//Construtores
+	public Pessoa() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 	
 	
+	public Pessoa(String codAzure, int idPessoa, String nome, int cpf, String rg, String email, String telResidencial, Endereco endereco) {
+	super(codAzure);
+	this.idPessoa = idPessoa;
+	this.nome = nome;
+	this.cpf = cpf;
+	this.rg = rg;
+	this.email = email;
+	this.telResidencial = telResidencial;
+	this.endereco = endereco;
+}
+
+
+
+
 	//Métodos Getters e Setters
 	public int getIdPessoa() {
 		return idPessoa;
@@ -52,18 +84,20 @@ public class Pessoa {
 	public void setTelResidencial(String telResidencial) {
 		this.telResidencial = telResidencial;
 	}
-	public int getCodAzure() {
-		return codAzure;
+	public Endereco getEndereco() {
+		return endereco;
 	}
-	public void setCodAzure(int codAzure) {
-		this.codAzure = codAzure;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
-	
+
+
+
 	//Método toString
 	@Override
 	public String toString() {
 		return "Pessoa [idPessoa=" + idPessoa + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + ", email=" + email
-				+ ", telResidencial=" + telResidencial + ", codAzure=" + codAzure + "]";
+				+ ", telResidencial=" + telResidencial + ", endereco=" + endereco + "]";
 	}
 	
 	

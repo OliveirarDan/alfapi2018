@@ -14,7 +14,6 @@ public class PessoaService {
 	}
 	
 	
-	
 	public void atualizar (Pessoa pessoa) throws SQLException {
 		dao.atualizar(pessoa);
 	}
