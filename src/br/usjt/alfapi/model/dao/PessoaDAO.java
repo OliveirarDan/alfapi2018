@@ -13,18 +13,22 @@ public class PessoaDAO {
 	// Método inserir e retorna id do usuario inserido
 	public int inserir(Pessoa pessoa) throws SQLException {
 		// Especificando o comando sql de inserção
-		String sqlInsert = "INSERT INTO pessoa (nome, cpf, rg, email, telCelular, codAzure) "
-				+ "values (?, ?, ?, ?, ?, ?)";
+		String sqlInsert = "INSERT INTO pessoa (nome, sobrenome, cpf, registrosec, email, dataNascimento, genero, telResidencial, telSecundario, codAzure)"
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			// compila o comando sql
 			stm.setString(1, pessoa.getNome());
-			stm.setInt(2, pessoa.getCpf());
-			stm.setString(3, pessoa.getRg());
-			stm.setString(4, pessoa.getEmail());
-			stm.setString(5, pessoa.getTelResidencial());
-			stm.setString(6, pessoa.getCodAzure());
+			stm.setString(2, pessoa.getSobrenome());
+			stm.setString(3, pessoa.getCpf());
+			stm.setString(4, pessoa.getRegistrosec());
+			stm.setString(5, pessoa.getEmail());
+			stm.setString(6, pessoa.getDataNascimento());
+			stm.setString(7, pessoa.getGenero());
+			stm.setString(8, pessoa.getTelResidencial());
+			stm.setString(9, pessoa.getTelSecundario());
+			stm.setString(10, pessoa.getCodAzure());
 
 			// executa o comando sql
 			stm.execute();
@@ -45,16 +49,21 @@ public class PessoaDAO {
 
 	// Método atualizar
 	public void atualizar(Pessoa pessoa) throws SQLException {
-		String sqlUpdate = "UPDATE pessoa SET nome=?, cpf=?, rg=?, email=?, telCelular=?, codAzure=? WHERE idPessoa=?";
+		String sqlUpdate = "UPDATE pessoa SET nome=?, sobrenome=?, cpf=?, registrosec=?, email=?, dataNascimento=?, genero=?, telResidencial=?, "
+				+ "telSecundario=?, codAzure=? WHERE idPessoa=?";
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			// compila o comando sql
 			stm.setString(1, pessoa.getNome());
-			stm.setInt(2, pessoa.getCpf());
-			stm.setString(3, pessoa.getRg());
-			stm.setString(4, pessoa.getEmail());
-			stm.setString(5, pessoa.getTelResidencial());
-			stm.setString(6, pessoa.getCodAzure());
+			stm.setString(2, pessoa.getSobrenome());
+			stm.setString(3, pessoa.getCpf());
+			stm.setString(4, pessoa.getRegistrosec());
+			stm.setString(5, pessoa.getEmail());
+			stm.setString(6, pessoa.getDataNascimento());
+			stm.setString(7, pessoa.getGenero());
+			stm.setString(8, pessoa.getTelResidencial());
+			stm.setString(9, pessoa.getTelSecundario());
+			stm.setString(10, pessoa.getCodAzure());
 			// stm.setInt(7, pessoa.getIdPessoa());
 
 			// executa o comando sql

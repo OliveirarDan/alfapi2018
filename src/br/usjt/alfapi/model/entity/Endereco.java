@@ -7,20 +7,32 @@ public class Endereco {
 	private String cep;
 	private String tipoDeLogradouro;
 	private String endereco;
-	private String numero;
+	private int numero;
 	private String bairro;
 	private String cidade;
 	private String estado;
 	private String pais;
-	
-	//Construtores
-	
+
+	// Construtores
 	public Endereco() {
 		// TODO Auto-generated constructor stub
 	}
 
-	// Métodos Getters e Setters
+	public Endereco(int idEndereco, String cep, String tipoDeLogradouro, String endereco, int numero, String bairro,
+			String cidade, String estado, String pais) {
+		super();
+		this.idEndereco = idEndereco;
+		this.cep = cep;
+		this.tipoDeLogradouro = tipoDeLogradouro;
+		this.endereco = endereco;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.pais = pais;
+	}
 
+	// Métodos Getters e Setters
 	public int getIdEndereco() {
 		return idEndereco;
 	}
@@ -53,11 +65,11 @@ public class Endereco {
 		this.endereco = endereco;
 	}
 
-	public String getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 

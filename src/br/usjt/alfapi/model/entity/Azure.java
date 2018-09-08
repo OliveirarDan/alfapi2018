@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Azure {
 
 	// Atributos
-	private int idAzure;
 	private String codAzure;
 	private ArrayList<String> fotos;
 
@@ -19,14 +18,6 @@ public class Azure {
 	}
 
 	// Métodos Get e Set
-	public int getIdAzure() {
-		return idAzure;
-	}
-
-	public void setIdAzure(int idAzure) {
-		this.idAzure = idAzure;
-	}
-
 	public String getCodAzure() {
 		return codAzure;
 	}
@@ -46,7 +37,7 @@ public class Azure {
 	// Método ToString
 	@Override
 	public String toString() {
-		return "Azure [idAzure=" + idAzure + ", codAzure=" + codAzure + ", fotos=" + fotos + "]";
+		return "Azure [codAzure=" + codAzure + ", fotos=" + fotos + "]";
 	}
 	
 }
