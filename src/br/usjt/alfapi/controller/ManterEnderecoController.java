@@ -18,8 +18,14 @@ public class ManterEnderecoController {
 		enderecoService = new EnderecoService();
 	}
 	
+	
+	@RequestMapping("index")
+	public String inicio() {
+		return "index";
+	}
+	
 	@RequestMapping("/novoEndereco")
-	public String novaPessoa() {
+	public String novoEndereco() {
 		return "NovoEndereco";
 	}
 	
