@@ -12,9 +12,7 @@ public class PessoaService {
 	public void inserir (Pessoa pessoa) throws SQLException {
 		dao.inserir(pessoa);
 	}
-	
-	
-	
+
 	public void atualizar (Pessoa pessoa) throws SQLException {
 		dao.atualizar(pessoa);
 	}

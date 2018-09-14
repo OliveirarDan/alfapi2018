@@ -17,8 +17,8 @@ public class ConnectionFactory {
 	}
 	
 	public static Connection getConnection() throws SQLException{
-		String stringConexao = "jdbc:mysql://localhost:3306/alfapidb";
-		String usuario = "alunos";
+		String stringConexao = "jdbc:mysql://127.0.0.1:3306/alfapidb";
+		String usuario = "root";
 		String senha = "alunos";
 		
 		
