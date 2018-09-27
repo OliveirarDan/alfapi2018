@@ -11,23 +11,22 @@ import br.usjt.alfapi.model.dao.EnderecoDAO;
 import br.usjt.alfapi.model.entity.Endereco;
 
 @Service
-public class EnderecoService {
+public class EnderecoService
+{
 	private EnderecoDAO dao;
-	
+
 	@Autowired
-	public EnderecoService(EnderecoDAO dao) {
+	public EnderecoService(EnderecoDAO dao)
+	{
 		this.dao = dao;
 	}
-	
+
 	@Transactional
-	public Endereco inserirEndereco(Endereco endereco) throws IOException {
+	public Endereco inserirEndereco(Endereco endereco) throws IOException
+	{
 		int id = dao.inserirEndereco(endereco);
 		endereco.setIdEndereco(id);
 		return endereco;
 	}
-	
-	
-	
-	
 
 }
