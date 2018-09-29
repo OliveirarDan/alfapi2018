@@ -1,0 +1,67 @@
+
+
+
+------Inserindo Pessoa
+Request URL
+https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons
+
+
+
+HTTP Request
+
+POST https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons HTTP/1.1
+Host: brazilsouth.api.cognitive.microsoft.com
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: 8fe8eda9d154459f91b30bc8165e4f17
+
+{
+    "name": "Person1",
+    "userData": "User-provided data attached to the person."
+}
+
+
+
+Danilo Rodrigues Oliveira
+response 1: {"personId":"92cdabd5-9401-4f97-a834-c6d9f5ca92f9"}
+
+
+DanDan
+response 2: {"personId":"0d57c9bf-f97f-4af3-ac1c-d360444699c5"}
+
+
+
+------------Inserindo Imagem
+
+
+POST https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons/92cdabd5-9401-4f97-a834-c6d9f5ca92f9/persistedFaces HTTP/1.1
+Host: brazilsouth.api.cognitive.microsoft.com
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: 8fe8eda9d154459f91b30bc8165e4f17
+
+{
+    "url": "https://media.licdn.com/dms/image/C5603AQGIZjaaEEZR4Q/profile-displayphoto-shrink_200_200/0?e=1543449600&v=beta&t=0KcGqHaAeBqmmfMBLVMB9XauA3W7tRaOQ5wlKj01kKI"
+}
+
+
+
+Response content
+
+Pragma: no-cache
+apim-request-id: 7db6a407-ae22-45db-9198-421d7afed8ad
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+x-content-type-options: nosniff
+Cache-Control: no-cache
+Date: Sat, 29 Sep 2018 19:32:49 GMT
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Content-Length: 58
+Content-Type: application/json; charset=utf-8
+Expires: -1
+teste 1
+{
+  "persistedFaceId": "6786be02-7fe0-47fa-bdf3-7af05cc751ec"
+}
+
+teste 2
+
+{"persistedFaceId":"f1c2a7c8-df16-4641-8991-6ec457669198"}

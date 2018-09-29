@@ -48,7 +48,7 @@ public class PessoaService {
 		return dao.listarPessoas(chave);
 	}
 	
-	public List<Pessoa> listarFilmes() throws IOException{
+	public List<Pessoa> listarPessoas() throws IOException{
 		return dao.listarPessoas();
 	}
 
