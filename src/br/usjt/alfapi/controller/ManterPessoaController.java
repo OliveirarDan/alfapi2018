@@ -18,11 +18,6 @@ import br.usjt.alfapi.model.entity.Pessoa;
 import br.usjt.alfapi.model.service.EnderecoService;
 import br.usjt.alfapi.model.service.PessoaService;
 
-/**
- * @author Estevão Lucena
- *
- */
-
 
 //@RestController
 @Controller
@@ -66,24 +61,15 @@ public class ManterPessoaController
 	*/
 	
 	@Transactional
-	@RequestMapping(method = RequestMethod.POST, value = "rest/pessoa", headers = "Accept=application/json")
-	public @ResponseBody Pessoa inserirPessoa(@RequestBody Pessoa pessoa, Model model) throws IOException
+	//@RequestMapping(method = RequestMethod.POST, value = "rest/pessoa", headers = "Accept=application/json")
+	//public @ResponseBody Pessoa inserirPessoa(@RequestBody Pessoa pessoa, Model model) throws IOException
+	public Pessoa inserirPessoa(Pessoa pessoa) throws IOException
 	{
-
-		/*
-		 * Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
-		 * endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
-		 * pessoa.setEndereco(endereco);
-		 */
-		Endereco enderecoNovo = new Endereco(99, "02991120", "Av", "Rua teste", 244, "Jaragua", "SP", "SP", "Europa");
-		pessoa.setEndereco(enderecoNovo);
-
 		pessoa = pessoaService.inserirPessoa(pessoa);
 
-		model.addAttribute("pessoa", pessoa);
+		//model.addAttribute("pessoa", pessoa);
 
 		return pessoa;
-
 	}
 
 	/*
