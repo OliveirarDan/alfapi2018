@@ -175,5 +175,71 @@ public class AzureController
 		}
 
 	}
+	
+	//Método Treinar
+	public void treinar(){
+		String endPoint = "https://brazil.outh.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/train";
+
+		HttpClient httpclient = new DefaultHttpClient();
+
+		try {
+			URIBuilder builder = new URIBuilder(endPoint);
+			URI uri = builder.build();
+			HttpPost request = new HttpPost(uri);
+			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+			// Request body
+			StringEntity reqEntity = new StringEntity("{\r\n"
+					+ "    \"url\": \"https://media.licdn.com/dms/image/C5603AQGIZjaaEEZR4Q/profile-displayphoto-shrink_200_200/0?e=1543449600&v=beta&t=0KcGqHaAeBqmmfMBLVMB9XauA3W7tRaOQ5wlKj01kKI\"\r\n"
+					+ "}");
+			request.setEntity(reqEntity);
+
+			HttpResponse response = httpclient.execute(request);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null){
+				System.out.println(EntityUtils.toString(entity));
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+
+	}
+	
+	//Método identificar
+	
+	public void identificar(){
+		
+		String endPoint = "https://brazil.outh.api.cognitive.microsoft.com/face/v1.0/identify";
+
+		HttpClient httpclient = new DefaultHttpClient();
+
+		try {
+			URIBuilder builder = new URIBuilder(endPoint);
+			
+			URI uri = builder.build();
+			HttpPost request = new HttpPost(uri);
+			request.setHeader("Content-Type", "application/json");
+			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+			// Request body
+			StringEntity reqEntity = new StringEntity("{\r\n"
+					+ "    \"url\": \"https://media.licdn.com/dms/image/C5603AQGIZjaaEEZR4Q/profile-displayphoto-shrink_200_200/0?e=1543449600&v=beta&t=0KcGqHaAeBqmmfMBLVMB9XauA3W7tRaOQ5wlKj01kKI\"\r\n"
+					+ "}");
+			request.setEntity(reqEntity);
+
+			HttpResponse response = httpclient.execute(request);
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null){
+				System.out.println(EntityUtils.toString(entity));
+			}
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+
+	}
+	
+	
 
 }
