@@ -2,10 +2,13 @@ package br.usjt.alfapi.controller;
 
 import java.io.IOException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,15 +66,51 @@ public class ManterPessoaController
 	@Transactional
 	//@RequestMapping(method = RequestMethod.POST, value = "rest/pessoa", headers = "Accept=application/json")
 	//public @ResponseBody Pessoa inserirPessoa(@RequestBody Pessoa pessoa, Model model) throws IOException
-	public Pessoa inserirPessoa(Pessoa pessoa) throws IOException
+	public Pessoa inserirPessoa2(Pessoa pessoa) throws IOException
 	{
 		pessoa = pessoaService.inserirPessoa(pessoa);
 
+		
 		//model.addAttribute("pessoa", pessoa);
 
 		return pessoa;
 	}
 
+	//NÃO ALTERAR
+	@Transactional
+	@RequestMapping("/inserirPessoa")
+	public String criarFilme(@Valid Pessoa pessoa, BindingResult erros, Model model) {
+		try {
+			if (!erros.hasErrors()) {
+				Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
+				endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
+				pessoa.setEndereco(endereco);
+				
+
+				pessoa = pessoaService.inserirPessoa(pessoa);
+
+				model.addAttribute("pessoa", pessoa);
+
+				return "Resultado";
+			} else {
+				return "NovaPessoa";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			model.addAttribute("erro", e);
+			return "Erro";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*
 	 * Método para buscar pessoa por Id.
 	 * RequestMapping é necessário para mapear o tipo de requisicao

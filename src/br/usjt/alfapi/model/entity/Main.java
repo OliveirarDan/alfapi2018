@@ -16,16 +16,16 @@ public class Main
 
 
 		// Testando DETECT
-		/**
-		 * String linkFoto =
-		 * "https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg";
-		 * azure.detectaPessoaUrl(linkFoto);
-		 */
+		
+		  String linkFoto =
+		  "https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg";
+		  azure.detectaPessoaUrl(linkFoto);
+		 
 
 		// Testando inserePessoa via ManterPessoaController
 		
 		//Parâmetros de pessoa
-		Endereco enderecoNovo = new Endereco(545, "02991120", "Av", "Rua teste", 244, "Jaragua", "SP", "SP", "Europa");			
+		/*Endereco enderecoNovo = new Endereco(545, "02991120", "Av", "Rua teste", 244, "Jaragua", "SP", "SP", "Europa");			
 		Pessoa pessoa = new Pessoa();
 		
 		String codAzure;
@@ -58,15 +58,23 @@ public class Main
 		pessoaController.inserirPessoa(pessoa);
 		
 
-		// Testando insereFotoPessoaUrl - Insere foto na pessoa através de uma url
+	 	Testando insereFotoPessoaUrl - Insere foto na pessoa através de uma url
 
-		/*
-		 * String dadosUsuario = "Brasileiro, legal e ciclista! teste com foto"; String
-		 * idPessoa = "92cdabd5-9401-4f97-a834-c6d9f5ca92f9"; String urlFoto =
-		 * "https://media.licdn.com/dms/image/C5603AQGIZjaaEEZR4Q/profile-displayphoto-shrink_200_200/0?e=1543449600&v=beta&t=0KcGqHaAeBqmmfMBLVMB9XauA3W7tRaOQ5wlKj01kKI";
-		 * azure.insereFotoPessoaUrl(idPessoa, urlFoto, dadosUsuario);
-		 */
+		
+		 String dadosUsuario = "Brasileiro, legal e ciclista! teste com foto"; String
+		 idPessoa = "92cdabd5-9401-4f97-a834-c6d9f5ca92f9"; String urlFoto =
+		 "https://media.licdn.com/dms/image/C5603AQGIZjaaEEZR4Q/profile-displayphoto-shrink_200_200/0?e=1543449600&v=beta&t=0KcGqHaAeBqmmfMBLVMB9XauA3W7tRaOQ5wlKj01kKI";
+		 azure.insereFotoPessoaUrl(idPessoa, urlFoto, dadosUsuario);
+		*/ 
 
+		
+		azure.insereFotoPessoaLocal("0d57c9bf-f97f-4af3-ac1c-d360444699c5", "dandan");
+		System.out.println("-------------------------------------");
+//		azure.detectaFace("0d57c9bf-f97f-4af3-ac1c-d360444699c5", "dandan");
+		System.out.println("-------------------------------------");
+//		azure.treinar();
+		System.out.println("-------------------------------------");
+		//azure.identificar();
 	}
 
 }
