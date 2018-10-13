@@ -20,9 +20,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
+ * AzureDAO - Acesso a Face API
+ * @author Danilo - AlfaPIGroup
+ * Classe responsável pelos métodos de acesso a Azure_Face_API
  * 
- * @author AlfaPIGroup
- *
  */
 public class AzureDAO {
 	// ChaveAzure
@@ -168,16 +169,16 @@ public class AzureDAO {
 	 * InsereFotoPessoaLocal - Esse método insere a foto da pessoa através de uma
 	 * foto carregada do sistema.
 	 * 
-	 * @param idPessoa
+	 * @param codAzure
 	 *            CodAzure utilizado no cadastro da Pessoa.
 	 * @param dadosUsuario
 	 *            Descrição ou informações da Pessoa.
 	 * @param fotourl
 	 *            URL da foto no sistema.
 	 */
-	public void insereFotoPessoaLocal2(String idPessoa, String dadosUsuario, String fotourl) {
+	public void insereFotoPessoaLocal(String codAzure, String dadosUsuario, String fotourl) {
 		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons/"
-				+ idPessoa + "/persistedFaces";
+				+ codAzure + "/persistedFaces";
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
 			URIBuilder builder = new URIBuilder(endPoint);
@@ -196,6 +197,8 @@ public class AzureDAO {
 			System.out.println(response.getStatusLine());
 			if (entity != null) {
 				System.out.println(EntityUtils.toString(entity));
+				
+				System.out.println("Foto :" + fotourl + " de Pesssoa Inserida no Azure, com sucesso!");
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -222,6 +225,7 @@ public class AzureDAO {
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {
 				System.out.println(EntityUtils.toString(entity));
+				System.out.println("Treinando API");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,7 +247,7 @@ public class AzureDAO {
 			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
 			// Request body
 			StringEntity reqEntity = new StringEntity("{\n" + "    \"personGroupId\": \"grupopi\",\n"
-					+ "    \"faceIds\": [\n" + "        \"d57759c8-b615-40d8-b904-d9231b409550\"\n" + "    ],\n"
+					+ "    \"faceIds\": [\n" + "        \""+ idFoto +"\"\n" + "    ],\n"
 					+ "    \"maxNumOfCandidatesReturned\": 5,\n" + "    \"confidenceThreshold\": 0.5\n" + "}");
 			request.setEntity(reqEntity);
 			HttpResponse response = httpclient.execute(request);

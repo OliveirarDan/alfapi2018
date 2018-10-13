@@ -28,30 +28,67 @@ public class ManterPessoaController
 {
 	@Autowired
 	private PessoaService pessoaService;
-
 	@Autowired
 	private EnderecoService enderecoService;
 
+	//NÃO ALTERAR
 	@RequestMapping("/")
 	public String iniciar()
 	{
 		return "index";
 	}
-
+	//NÃO ALTERAR
 	@RequestMapping("/index")
 	public String iniciarA()
 	{
 		return "index";
 	}
-
+	//NÃO ALTERAR
 	@RequestMapping("/novaPessoa")
 	public String novaPessoa()
 	{
 		return "NovaPessoa";
 	}
 	
+	//NÃO ALTERAR
+		@Transactional
+		@RequestMapping("/inserirPessoa")
+		public String criarFilme(@Valid Pessoa pessoa, BindingResult erros, Model model) {
+			try {
+				if (!erros.hasErrors()) {
+					//insere e pega o endereço cadastrado (ID_endereco é necessário)
+					Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
+					endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
+					//Atualiza endereço de pessoa
+					pessoa.setEndereco(endereco);
+					//Insere pessoa no banco
+					pessoa = pessoaService.inserirPessoa(pessoa);
+					//Inserindo imagens da pessoa na API
+					pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho1.jpg");
+					pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho2.jpg");
+					pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho3.jpg");
+					//Treinando API após inserção de imagens
+					pessoaService.treinarApi();
+					//Identifica pessoa a partir de uma imagem
+					pessoaService.identificarPessoa("C://Pessoas/Ronaldinho/ronaldinho4.jpg");
+					//Manda o objeto pessoa atualizado para o model
+					model.addAttribute("pessoa", pessoa);
+					return "Resultado";
+				} else {
+					return "NovaPessoa";
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				model.addAttribute("erro", e);
+				return "Erro";
+			}
+		}
+	
+	
+		
+		
 	/*
-	 * Método inserirPessoa que deve receber um Json com o objeto pessoa para cadastro
+	 * Método inserirPessoa2 que deve receber um Json com o objeto pessoa para cadastro
 	 * Headers: utilizado para que o método possa reconhecer que irá receber um Json. 
 	 * Observe que no GET não foi necessário (talvez em outros casos seja.).
 	 * ResponseBody: qual será o retorno do método.
@@ -75,40 +112,6 @@ public class ManterPessoaController
 
 		return pessoa;
 	}
-
-	//NÃO ALTERAR
-	@Transactional
-	@RequestMapping("/inserirPessoa")
-	public String criarFilme(@Valid Pessoa pessoa, BindingResult erros, Model model) {
-		try {
-			if (!erros.hasErrors()) {
-				Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
-				endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
-				pessoa.setEndereco(endereco);
-				
-
-				pessoa = pessoaService.inserirPessoa(pessoa);
-
-				model.addAttribute("pessoa", pessoa);
-
-				return "Resultado";
-			} else {
-				return "NovaPessoa";
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			model.addAttribute("erro", e);
-			return "Erro";
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	/*
