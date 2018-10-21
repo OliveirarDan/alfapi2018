@@ -8,11 +8,16 @@ public class Testes {
 
 	static AzureDAO azure = new AzureDAO();	
 	static PessoaDAO pessoaDAO = new PessoaDAO();
+<<<<<<< HEAD
 	static PessoaService pService = new PessoaService(pessoaDAO);
+=======
+	static PessoaService pservice = new PessoaService(pessoaDAO);
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	
 	
 	public static void main(String[] args) {
 		//chamaDetect();
+<<<<<<< HEAD
 		//pService.identificarPessoa("C://Pessoas/Neymar/Neymar4.jpg");
 		//azureDao.identificaPessoa(azureDao.detectaPessoa(urlFoto));
 		//azure.identificaPessoa("dfe81c09-9638-48dd-8e30-d4295f52807e");
@@ -22,12 +27,22 @@ public class Testes {
 		chamaInsereFoto();
 		chamaTreinar();
 		chamaIdentificar();
+=======
+		pservice.identificarPessoa("C://Pessoas/Neymar/Neymar4.jpg");
+		//azureDao.identificaPessoa(azureDao.detectaPessoa(urlFoto));
+		//azure.identificaPessoa("dfe81c09-9638-48dd-8e30-d4295f52807e");
+		//chamaTreinar();
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	}
 
 	
 		
 	public static String chamaDetect() {
+<<<<<<< HEAD
 		return azure.detectaPessoa("C:/Users/alves/eclipse-workspace/alfapi2018/WebContent/Pessoas/Cristiano/cristiano3.jpg");
+=======
+		return azure.detectaPessoa("C://Pessoas/Neymar/neymar1.jpg");
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 		// "faceId": "d57759c8-b615-40d8-b904-d9231b409550" messi
 	}
 	
@@ -35,7 +50,10 @@ public class Testes {
 	public static void chamaInserePessoa() {
 		azure.inserePessoa("Cristiano", "Português");
 		
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	//	Pessoas Inseridas
 	//	Messi, argentino{id: "d30e75a2-fbd0-4b99-8e32-503b07c5a7e8"}
 		//Fotos Messi 
@@ -53,7 +71,11 @@ public class Testes {
 		
 	}
 	public static void chamaInsereFoto() {
+<<<<<<< HEAD
 		azure.insereFotoPessoaLocal("78a10703-c1b5-488e-a5d3-6264bbbda90b", "Cristiano, Portugues", "C:/Users/alves/eclipse-workspace/alfapi2018/WebContent/Pessoas/Cristiano/cristiano3.jpg");
+=======
+		azure.insereFotoPessoaLocal("006f5ce1-2dd4-4d9d-aa96-60fe317eca8e", "Cristiano, Portugues", "C://Pessoas/Cristiano/cristiano3.jpg");
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	}
 	
 	public static void chamaTreinar() {

@@ -13,16 +13,23 @@ import br.usjt.alfapi.model.dao.PessoaDAO;
 import br.usjt.alfapi.model.entity.Pessoa;
 
 @Service
+<<<<<<< HEAD
 public class PessoaService
 {
 	PessoaDAO pessoaDao = new PessoaDAO();
 	AzureDAO azureDao = new AzureDAO();
+=======
+public class PessoaService {
+	PessoaDAO dao = new PessoaDAO();
+	AzureDAO azureDao = new AzureDAO();	
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 
 	@Autowired
 	public PessoaService(PessoaDAO pdao)
 	{
 		pessoaDao = pdao;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * InserirPessoa - Esse método insere a pessoa no azure, recebe o codAzure e
@@ -30,10 +37,17 @@ public class PessoaService
 	 * 
 	 * @param pessoa
 	 *            - recebe um objeto pessoa da view.
+=======
+	
+	/**
+	 * InserirPessoa - Esse método insere a pessoa no azure, recebe o codAzure e insere os dados da pessoa no banco. 
+	 * @param pessoa  - recebe um objeto pessoa da view. 
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	 * @return pessoa - retorna um objeto pessoa atualizado com o cod azure
 	 * @throws IOException
 	 */
 	@Transactional
+<<<<<<< HEAD
 	public Pessoa inserirPessoa(Pessoa pessoa) throws IOException
 	{
 		pessoa.setCodAzure(azureDao.inserePessoa(pessoa.getNome(), pessoa.getSobrenome()));
@@ -55,6 +69,49 @@ public class PessoaService
 	public void inserirFotoPessoa(Pessoa pessoa, String foto) throws IOException
 	{
 		azureDao.insereFotoPessoaLocal(pessoa.getCodAzure(), (pessoa.getNome() + " " + pessoa.getSobrenome()), foto);
+=======
+	public Pessoa inserirPessoa (Pessoa pessoa) throws IOException {
+		pessoa.setCodAzure(azureDao.inserePessoa(pessoa.getNome(), pessoa.getSobrenome()));
+		System.out.println("Código de pessoa no Azure: " + pessoa.getCodAzure());
+		int id = dao.inserirPessoa(pessoa);
+		pessoa.setIdPessoa(id);
+		return pessoa;
+	}
+	
+	/**
+	 * inserirFotoPessoa - Esse método recebe 1 foto (endereço em string) e envia para o azure
+	 * @param pessoa 
+	 * @param foto - Endereço da foto
+	 * @throws IOException
+	 */
+	public void inserirFotoPessoa (Pessoa pessoa, String foto) throws IOException{
+		azureDao.insereFotoPessoaLocal(pessoa.getCodAzure(), (pessoa.getNome()+ " " + pessoa.getSobrenome()), foto);
+	}
+	
+	
+	/**
+	 * treinarAPI - Esse método faz a API da azure treinar.
+	 * Reconhece as fotos já carregadas e aumenta a precisão da identificação.
+	 */
+	public void treinarApi () {
+		azureDao.treinar();
+	}
+	
+	/**
+	 * identificarPessoa - Esse método recebe o endereço de uma foto.
+	 * Chama o detecta pessoa que realiza a detecção da foto e retorna um ID.
+	 * O ID é utilizado no indentify para reconhecer as pessoas parecidas em um grupo.
+	 * @param urlFoto - Foto selecionada para fazer a identificação.
+	 */
+	public void identificarPessoa(String urlFoto) {
+		azureDao.identificaPessoa(azureDao.detectaPessoa(urlFoto));
+
+	}
+	
+	@Transactional
+	public void atualizarPessoa (Pessoa pessoa) throws IOException {
+		dao.atualizaPessoa(pessoa);
+>>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	}
 
 	/**
