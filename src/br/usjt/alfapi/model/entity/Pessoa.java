@@ -28,6 +28,7 @@ public class Pessoa extends Azure {
 	private String genero;
 	private String telResidencial;
 	private String telSecundario;
+	private String codAzure;
 	@NotNull
 	@OneToOne
 	@JoinColumn(name="Endereco_idEndereco")
@@ -38,6 +39,7 @@ public class Pessoa extends Azure {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public Pessoa(String codAzure, int idPessoa, String nome, String sobrenome, String cpf, String registrosec, String email,
 			String dataNascimento, String genero, String telResidencial, String telSecundario, Endereco endereco) {
 		super(codAzure);
@@ -142,6 +144,17 @@ public class Pessoa extends Azure {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+	
+
+	public String getCodAzure() {
+		return codAzure;
+	}
+
+
+	public void setCodAzure(String codAzure) {
+		this.codAzure = codAzure;
+	}
+
 
 	// Método toString
 	@Override

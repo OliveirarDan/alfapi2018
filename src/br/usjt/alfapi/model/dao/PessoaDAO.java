@@ -25,13 +25,14 @@ public class PessoaDAO {
 		return manager.find(Pessoa.class, id);
 	}
 	
-	public void atualizaPessoa(Pessoa pessoa)throws IOException{
+	public Pessoa atualizaPessoa(Pessoa pessoa)throws IOException{
 		System.out.println(pessoa);
 		manager.merge(pessoa);
+		return pessoa;
 	}
 	
-	public void removerPessoa(Pessoa pessoa)throws IOException{
-		manager.remove(manager.find(Pessoa.class, pessoa.getIdPessoa()));
+	public void removerPessoa(int id)throws IOException{
+		manager.remove(manager.find(Pessoa.class, id));
 	}
 	
 	
