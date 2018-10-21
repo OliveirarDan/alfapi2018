@@ -1,5 +1,7 @@
 package br.usjt.alfapi.model.entity;
 
+import java.io.File;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +31,17 @@ public class Pessoa extends Azure {
 	private String telResidencial;
 	private String telSecundario;
 	private String codAzure;
+	private File foto;
+	public File getFoto() {
+		return foto;
+	}
+
+
+	public void setFoto(File foto) {
+		this.foto = foto;
+	}
+
+
 	@NotNull
 	@OneToOne
 	@JoinColumn(name="Endereco_idEndereco")

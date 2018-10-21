@@ -42,6 +42,7 @@ public class AzureDAO {
 			URIBuilder builder = new URIBuilder(endPointDetect);
 			// Request parameters. All of them are optional.
 			builder.setParameter("returnFaceId", "true");
+			builder.setParameter("returnGender", "true");
 			builder.setParameter("returnFaceLandmarks", "false");
 			// Prepare the URI for the REST API call.
 			URI uri = builder.build();
@@ -64,6 +65,52 @@ public class AzureDAO {
 				idFoto = teste.getString("faceId");
 				System.out.println("Rodando detectPessoa() \nId da foto: " + idFoto
 						+ "\n---------------------------------------------------\n");
+			}
+		} catch (Exception e) {
+			// Display error message.
+			System.out.println(e.getMessage());
+		}
+		return idFoto;
+	}
+	
+	
+	/**
+	 * detectaPessoaFile - Detecta Pessoa a partir de um arquivo
+	 * @param urlFoto
+	 * @return
+	 */
+	public String detectaPessoaFile(File file) {
+		String endPointDetect = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/detect";
+		String idFoto = "";
+		HttpClient httpclient = new DefaultHttpClient();
+		try {
+			URIBuilder builder = new URIBuilder(endPointDetect);
+			// Request parameters. All of them are optional.
+			builder.setParameter("returnFaceId", "true");
+			
+			builder.setParameter("returnFaceLandmarks", "false");
+			// Prepare the URI for the REST API call.
+			URI uri = builder.build();
+			HttpPost request = new HttpPost(uri);
+			// Request headers.
+			request.setHeader("Content-Type", "application/octet-stream");
+			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+			// Request body.
+			
+			FileEntity reqEntity = new FileEntity(file, ContentType.APPLICATION_OCTET_STREAM);
+			request.setEntity(reqEntity);
+			// Execute the REST API call and get the response entity.
+			HttpResponse response = httpclient.execute(request);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			json = json.replace("[", "");
+			// Tratamento do response
+			if (entity != null) {
+				JSONObject teste = new JSONObject(json);
+				idFoto = teste.getString("faceId");
+				System.out.println("Rodando detectPessoa() \nId da foto: " + idFoto
+						+ "\n---------------------------------------------------\n");
+				System.out.println(entity.toString());
 			}
 		} catch (Exception e) {
 			// Display error message.
@@ -206,6 +253,37 @@ public class AzureDAO {
 
 	}
 
+	public void insereFotoPessoaFile(String codAzure, String dadosUsuario, File file) {
+		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons/"
+				+ codAzure + "/persistedFaces";
+		HttpClient httpclient = new DefaultHttpClient();
+		try {
+			URIBuilder builder = new URIBuilder(endPoint);
+			URI uri = builder.build();
+			HttpPost request = new HttpPost(uri);
+			request.setHeader("Content-Type", "application/octet-stream");
+			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+			builder.setParameter("userData", "{" + dadosUsuario + "}");
+			builder.setParameter("targetFace", "");
+			// Request body
+			
+			FileEntity reqEntity = new FileEntity(file, ContentType.APPLICATION_OCTET_STREAM);
+			request.setEntity(reqEntity);
+			HttpResponse response = httpclient.execute(request);
+			HttpEntity entity = response.getEntity();
+			System.out.println(response.getStatusLine());
+			if (entity != null) {
+				System.out.println(EntityUtils.toString(entity));
+				
+				System.out.println("Foto :" + file.getName() + " de Pesssoa Inserida no Azure, com sucesso!");
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+	
+	
 	/**
 	 * treinar - Esse método faz a API treinar, deve ser utilizado depois de inserir
 	 * as fotos de uma pessoa.

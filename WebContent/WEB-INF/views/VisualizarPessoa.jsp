@@ -83,6 +83,7 @@
 		<hr />
 		<div id="actions" class="row">
 			<div class="col-md-12">
+				<a href="manterPessoas.do?acao=editar&id=${pessoa.id}" class="btn btn-primary">Carregar Fotos</a> 	
 				<a href="manterPessoas.do?acao=editar&id=${pessoa.id}" class="btn btn-primary">Editar</a> 
 				<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Excluir</a> 
 				<a href="ListarPessoas.jsp" class="btn btn-default">Voltar</a>

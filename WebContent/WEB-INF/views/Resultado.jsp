@@ -9,5 +9,7 @@
 <body>
 	<h2>Nome da pessoa: ${pessoa.nome}</h2>
 	<h3>CPF da pessoa: ${pessoa.cpf}</h3>
+	<h3>Código Azure: ${pessoa.codAzure}</h3>
+	<img alt="Foto" src="${pessoa.foto}">
 </body>
 </html>
