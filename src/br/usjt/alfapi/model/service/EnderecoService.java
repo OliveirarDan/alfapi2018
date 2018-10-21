@@ -21,8 +21,6 @@ public class EnderecoService
 		this.dao = dao;
 	}
 
-	
-	
 	@Transactional
 	public Endereco inserirEndereco(Endereco endereco) throws IOException
 	{

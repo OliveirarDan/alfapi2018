@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,39 +30,26 @@ public class ManterPessoaController
 	@Autowired
 	private EnderecoService enderecoService;
 
-<<<<<<< HEAD
 	// NÃO ALTERAR
-=======
-	//NÃO ALTERAR
->>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	@RequestMapping("/")
 	public String iniciar()
 	{
 		return "index";
 	}
-<<<<<<< HEAD
 
 	// NÃO ALTERAR
-=======
-	//NÃO ALTERAR
->>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	@RequestMapping("/index")
 	public String iniciarA()
 	{
 		return "index";
 	}
-<<<<<<< HEAD
 
 	// NÃO ALTERAR
-=======
-	//NÃO ALTERAR
->>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	@RequestMapping("/novaPessoa")
 	public String novaPessoa()
 	{
 		return "NovaPessoa";
 	}
-<<<<<<< HEAD
 
 	// NÃO ALTERAR
 	@Transactional
@@ -118,63 +103,6 @@ public class ManterPessoaController
 
 	@RequestMapping(method = RequestMethod.POST, value = "rest/pessoa", headers = "Accept=application/json")
 	public @ResponseBody Pessoa inserirPessoa(@RequestBody Pessoa pessoa, Model model) throws IOException
-=======
-	
-	//NÃO ALTERAR
-		@Transactional
-		@RequestMapping("/inserirPessoa")
-		public String criarFilme(@Valid Pessoa pessoa, BindingResult erros, Model model) {
-			try {
-				if (!erros.hasErrors()) {
-					//insere e pega o endereço cadastrado (ID_endereco é necessário)
-					Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
-					endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
-					//Atualiza endereço de pessoa
-					pessoa.setEndereco(endereco);
-					//Insere pessoa no banco
-					pessoa = pessoaService.inserirPessoa(pessoa);
-					//Inserindo imagens da pessoa na API
-					pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho1.jpg");
-					pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho2.jpg");
-					pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho3.jpg");
-					//Treinando API após inserção de imagens
-					pessoaService.treinarApi();
-					//Identifica pessoa a partir de uma imagem
-					pessoaService.identificarPessoa("C://Pessoas/Ronaldinho/ronaldinho4.jpg");
-					//Manda o objeto pessoa atualizado para o model
-					model.addAttribute("pessoa", pessoa);
-					return "Resultado";
-				} else {
-					return "NovaPessoa";
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				model.addAttribute("erro", e);
-				return "Erro";
-			}
-		}
-	
-	
-		
-		
-	/*
-	 * Método inserirPessoa2 que deve receber um Json com o objeto pessoa para cadastro
-	 * Headers: utilizado para que o método possa reconhecer que irá receber um Json. 
-	 * Observe que no GET não foi necessário (talvez em outros casos seja.).
-	 * ResponseBody: qual será o retorno do método.
-	 * RequestBody: o que p método irá receber no corpo do Json. 
-	 * **Observe que precisa ser definido o que irá no corpo do response e do request.
-	 * 
-	 * PROBLEMA: está informando um erro do tipo Hibernate no entity Endereço.
-	 * Acho que é algo sobre o relacionamento entre Endereco e Pessoa. 
-	 * Precisa validar se a classe entity.Endereco e Pessoa estão anotadas corretamente.
-	*/
-	
-	@Transactional
-	//@RequestMapping(method = RequestMethod.POST, value = "rest/pessoa", headers = "Accept=application/json")
-	//public @ResponseBody Pessoa inserirPessoa(@RequestBody Pessoa pessoa, Model model) throws IOException
-	public Pessoa inserirPessoa2(Pessoa pessoa) throws IOException
->>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	{
 		// insere e pega o endereço cadastrado (ID_endereco é necessário)
 		Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
@@ -184,7 +112,6 @@ public class ManterPessoaController
 		// Insere a pessoa no BD e na Azure
 		pessoa = pessoaService.inserirPessoa(pessoa);
 
-<<<<<<< HEAD
 		// Adiciona Pessoa como um atributo do model
 		model.addAttribute("pessoa", pessoa);
 
@@ -198,23 +125,6 @@ public class ManterPessoaController
 	 * @return Objeto de pessoa em JSON
 	 * @throws IOException
 	 */
-=======
-		
-		//model.addAttribute("pessoa", pessoa);
-
-		return pessoa;
-	}
-	
-	
-	/*
-	 * Método para buscar pessoa por Id.
-	 * RequestMapping é necessário para mapear o tipo de requisicao
-	 * ResponseBody: determina qual será o corpo da resposta, ou seja, o que irá
-	 * no retorno do método como Json
-	 * PathVariable: usado para identificar o id como atributo e não um recurso do método	 * 
-	 * Return: um Json com o objeto pessoa que foi identificado pelo id.
-	*/
->>>>>>> 876a43baf63f7de18a407159dadfd3fd0158e19e
 	@RequestMapping(method = RequestMethod.GET, value = "rest/pessoa/{id}")
 	public @ResponseBody Pessoa buscaPessoaPorId(@PathVariable("id") int id, Model model) throws IOException
 	{
