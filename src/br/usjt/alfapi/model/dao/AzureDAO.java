@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
  */
 public class AzureDAO {
 	// ChaveAzure
-	private static final String subscriptionKey = "8fe8eda9d154459f91b30bc8165e4f17";
+	private static final String subscriptionKey = "d311017b91744235992d2be37239bd12";
 
 	/**
 	 * detectaPessoa - Esse método detecta pessoa carregando um arquivo (foto)
@@ -179,7 +179,7 @@ public class AzureDAO {
 	 * @return codAzure
 	 */
 	public String inserePessoa(String nome, String dadosUsuario) {
-		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons";
+		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopii/persons";
 		String codAzure = "";
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
@@ -224,7 +224,7 @@ public class AzureDAO {
 	 *            URL da foto no sistema.
 	 */
 	public void insereFotoPessoaLocal(String codAzure, String dadosUsuario, String fotourl) {
-		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons/"
+		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopii/persons/"
 				+ codAzure + "/persistedFaces";
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
@@ -254,7 +254,7 @@ public class AzureDAO {
 	}
 
 	public void insereFotoPessoaFile(String codAzure, String dadosUsuario, File file) {
-		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/persons/"
+		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopii/persons/"
 				+ codAzure + "/persistedFaces";
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
@@ -289,7 +289,7 @@ public class AzureDAO {
 	 * as fotos de uma pessoa.
 	 */
 	public void treinar() {
-		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopi/train";
+		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/persongroups/grupopii/train";
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
 			URIBuilder builder = new URIBuilder(endPoint);
@@ -324,7 +324,7 @@ public class AzureDAO {
 			request.setHeader("Content-Type", "application/json");
 			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
 			// Request body
-			StringEntity reqEntity = new StringEntity("{\n" + "    \"personGroupId\": \"grupopi\",\n"
+			StringEntity reqEntity = new StringEntity("{\n" + "    \"personGroupId\": \"grupopii\",\n"
 					+ "    \"faceIds\": [\n" + "        \""+ idFoto +"\"\n" + "    ],\n"
 					+ "    \"maxNumOfCandidatesReturned\": 5,\n" + "    \"confidenceThreshold\": 0.5\n" + "}");
 			request.setEntity(reqEntity);

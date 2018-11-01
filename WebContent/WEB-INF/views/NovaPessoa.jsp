@@ -22,7 +22,7 @@
 	<div id="main" class="container">
 		<h3 class="page-header">Novo cadastro</h3>
 		<!-- Formulario para inclusao de clientes -->
-		<form action="inserirPessoaFoto" method="post"
+		<form action="inserirPessoaFoto64" method="post"
 			enctype="multipart/form-data">
 			<!-- area de campos do form -->
 			<div class="row">
@@ -33,7 +33,6 @@
 						maxlength="60" placeholder="nome">
 				</div>
 			</div>
-
 			<div class="row">
 				<div class="form-group col-md-8">
 					<label for="sobrenome">Sobrenome</label>
@@ -58,7 +57,6 @@
 						id="registro" maxlength="60" placeholder="registro">
 				</div>
 			</div>
-
 			<div class="row">
 				<div class="form-group col-md-8">
 					<label for="email">Email</label>
@@ -100,24 +98,7 @@
 						id="telsecundario" maxlength="60" placeholder="telsecundario">
 				</div>
 			</div>
-
-			<!--  
-            <div class="row">
-            	    <div class="form-group col-md-8">
-                    <label for="posterpath">Insira as fotos</label>
-                    <input type="text" class="form-control" name="posterPath" id="posterpath" maxlength="200" placeholder="caminho da imagem das fotos">
-                </div>
-        
-                 <div class="form-group col-md-8">
-                    <label for="CPF">RG </label>
-                    <input type="text" class="form-control" name="RG" id="RG" min="0.0" max="100.0" placeholder="RG">
-                </div>
-            </div>
-            <hr />
-           -->
-
 			<!-- parte para inclusao de endereço de cliente -->
-
 			<!-- area de campos do form -->
 			<div class="row">
 				<div class="form-group col-md-8">
@@ -138,48 +119,77 @@
 						class="form-control" name="endereco.endereco" id="Endereco"
 						maxlength="60" placeholder="Endereco">
 				</div>
-
 				<div class="form-group col-md-4">
 					<label for="numero">Numero</label> <input type="text"
 						class="form-control" name="endereco.numero" id="numero"
 						placeholder="numero da residencia">
 				</div>
-
 				<div class="form-group col-md-4">
 					<label for="bairro">Bairro</label> <input type="text"
 						class="form-control" name="endereco.bairro" id="bairro"
 						placeholder="Bairro">
 				</div>
-
 				<div class="form-group col-md-4">
 					<label for="cidade">Cidade</label> <input type="text"
 						class="form-control" name="endereco.cidade" id="cidade"
 						placeholder="Cidade">
 				</div>
-
 				<div class="form-group col-md-4">
 					<label for="estado">Estado</label> <input type="text"
 						class="form-control" name="endereco.estado" id="estado"
 						placeholder="Estado">
 				</div>
-
 				<div class="form-group col-md-4">
 					<label for="Pais">Pais</label> <input type="text"
 						class="form-control" name="endereco.pais" id="pais"
 						placeholder="Pais">
 				</div>
-
 			</div>
-
-
+			<!-- parte para inclusao da foto -->
 			<div class="row">
-
-
-				<form:errors path="file" cssStyle="color:red" />
-				<input type="file" class="form-control" name="file" id="file">
-
+				<div>
+					<video id="video" width="640" height="480" autoplay></video>
+					<input type="button" id="snap" title="Capturar Foto" value="Captura Imagem"> 
+					<canvas id="canvas" width="640" height="480"></canvas>
+					<script type="text/javascript">
+						// Grab elements, create settings, etc.
+						var video = document.getElementById('video');
+						// Get access to the camera!
+						if (navigator.mediaDevices
+								&& navigator.mediaDevices.getUserMedia) {
+							// Not adding `{ audio: true }` since we only want video now
+							navigator.mediaDevices.getUserMedia({
+								video : true
+							}).then(function(stream) {
+								video.src = window.URL.createObjectURL(stream);
+								video.play();
+							});
+						}
+						// Elements for taking the snapshot
+						var canvas = document.getElementById('canvas');
+						var context = canvas.getContext('2d');
+						var video = document.getElementById('video');
+						// Trigger photo take
+						document.getElementById("snap")
+								.addEventListener(
+										"click",
+										function() {
+											context.drawImage(video, 0, 0, 640,
+													480);
+											var input = document
+													.createElement('input');
+											input.type = "text";
+											input.name = "file";
+											input.value = canvas.toDataURL();
+											document.getElementById("foto")
+													.appendChild(input);
+										});
+					</script>
+				</div>
+				<div id="foto">
+					<form:errors path="file" cssStyle="color:red" />
+				</div>
 			</div>
-
 			<hr />
 			<div id="actions" class="row">
 				<div class="col-md-12">
@@ -188,13 +198,7 @@
 					<a href="index" class="btn btn-default">Cancelar</a>
 				</div>
 			</div>
-
-
-
-
 		</form>
-
-
 	</div>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
