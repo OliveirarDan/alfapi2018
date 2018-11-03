@@ -1,5 +1,6 @@
 package br.usjt.alfapi.model.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -58,6 +59,16 @@ public class PessoaService
 	}
 
 	/**
+	 * inserirFotoPessoaFile - Esse método recebe 1 foto (endereço em string) e envia para o azure
+	 * @param pessoa 
+	 * @param foto - Arquivo da foto
+	 * @throws IOException
+	 */
+	public void inserirFotoPessoaFile (Pessoa pessoa, File foto) throws IOException{
+		azureDao.insereFotoPessoaFile(pessoa.getCodAzure(), (pessoa.getNome()+ " " + pessoa.getSobrenome()), foto);
+	}
+	
+	/**
 	 * treinarAPI - Esse método faz a API da azure treinar. Reconhece as fotos já
 	 * carregadas e aumenta a precisão da identificação.
 	 */
@@ -77,6 +88,16 @@ public class PessoaService
 	public void identificarPessoa(String urlFoto)
 	{
 		azureDao.identificaPessoa(azureDao.detectaPessoa(urlFoto));
+	}
+	
+	/**
+	 * identificarPessoaFile - Esse método recebe o endereço de uma foto.
+	 * Chama o detecta pessoa que realiza a detecção da foto e retorna um ID.
+	 * O ID é utilizado no indentify para reconhecer as pessoas parecidas em um grupo.
+	 * @param file - Foto selecionada para fazer a identificação.
+	 */
+	public void identificarPessoa(File file) {
+		azureDao.identificaPessoa(azureDao.detectaPessoaFile(file));
 
 	}
 

@@ -27,13 +27,18 @@
 	</bean>
 	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3307/alfapidb"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="781080"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/alfapidb"></property>
+		<property name="username" value="alunos"></property>
+		<property name="password" value="alunos"></property>
 	</bean>
 	<!-- gerenciamento de transacao pelo spring -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="1000000" />
 	</bean>
 	<tx:annotation-driven />
 </beans>
