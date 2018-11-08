@@ -31,15 +31,7 @@ public class Pessoa extends Azure {
 	private String telResidencial;
 	private String telSecundario;
 	private String codAzure;
-	private File foto;
-	public File getFoto() {
-		return foto;
-	}
-
-
-	public void setFoto(File foto) {
-		this.foto = foto;
-	}
+	private String foto;	
 	
 	@NotNull
 	@OneToOne
@@ -53,7 +45,7 @@ public class Pessoa extends Azure {
 
 	
 	public Pessoa(String codAzure, int idPessoa, String nome, String sobrenome, String cpf, String registrosec, String email,
-			String dataNascimento, String genero, String telResidencial, String telSecundario, Endereco endereco) {
+			String dataNascimento, String genero, String telResidencial, String telSecundario, Endereco endereco, String foto) {
 		super(codAzure);
 		this.idPessoa = idPessoa;
 		this.nome = nome;
@@ -66,6 +58,7 @@ public class Pessoa extends Azure {
 		this.telResidencial = telResidencial;
 		this.telSecundario = telSecundario;
 		this.endereco = endereco;
+		this.foto = foto;
 	}
 
 	// Métodos Getters e Setters
@@ -166,6 +159,17 @@ public class Pessoa extends Azure {
 	public void setCodAzure(String codAzure) {
 		this.codAzure = codAzure;
 	}
+	
+	public String getFoto()
+	{
+		return foto;
+	}
+
+
+	public void setFoto(String foto)
+	{
+		this.foto = foto;
+	}
 
 
 	// Método toString
@@ -176,5 +180,8 @@ public class Pessoa extends Azure {
 				+ ", genero=" + genero + ", telResidencial=" + telResidencial + ", telSecundario=" + telSecundario
 				+ ", endereco=" + endereco + "]";
 	}
+
+
+	
 
 }

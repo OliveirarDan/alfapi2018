@@ -330,9 +330,7 @@ public class ManterPessoaController
 			azureDao.treinar();
 
 			// Aqui é acionado o IdentificaPessoa que precisa de um FaceID, obtido através do DetectaPessoa
-			// IMPORTANTE: ajustar para receber a foto ou array de fotos, o que for necessario
-			String testeFoto = foto;
-			String response = azureDao.identificaPessoa(azureDao.detectaPessoaUrl(testeFoto));
+			String response = azureDao.identificaPessoa(azureDao.detectaPessoa(foto));
 
 			return response;
 

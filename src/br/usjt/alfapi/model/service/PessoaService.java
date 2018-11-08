@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.secure.spi.PermissibleAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,9 @@ public class PessoaService
 	public Pessoa inserirPessoa(Pessoa pessoa) throws IOException
 	{
 		pessoa.setCodAzure(azureDao.inserePessoa(pessoa.getNome(), pessoa.getSobrenome()));
+		pessoa.setFoto(azureDao.insereFotoPessoa(pessoa.getCodAzure(), pessoa.getFoto()));
 		System.out.println("Código de pessoa no Azure: " + pessoa.getCodAzure());
+		System.out.println("Id da foto na Azure: " + pessoa.getFoto());
 		int id = pessoaDao.inserirPessoa(pessoa);
 		pessoa.setIdPessoa(id);
 		return pessoa;
@@ -84,8 +87,9 @@ public class PessoaService
 	 * 
 	 * @param urlFoto
 	 *            - Foto selecionada para fazer a identificação.
+	 * @throws IOException 
 	 */
-	public void identificarPessoa(String urlFoto)
+	public void identificarPessoa(String urlFoto) throws IOException
 	{
 		azureDao.identificaPessoa(azureDao.detectaPessoa(urlFoto));
 	}
