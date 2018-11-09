@@ -11,6 +11,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
@@ -323,14 +324,6 @@ public class AzureDAO
 		String base64Image = foto.split(",")[1];
 		// This will decode the String which is encoded by using Base64 class
 		byte[] imageByte = Base64.decodeBase64(base64Image);
-		// salva imagem no servidor
-		String directory = "C:/teste/" + codAzure + ".png";
-		// Convertendo Tipo de file
-		File file = new File(directory);
-		file.createNewFile();
-		FileOutputStream fos = new FileOutputStream(file);
-		fos.write(imageByte);
-		fos.close();
 
 		HttpClient httpclient = new DefaultHttpClient();
 		try
@@ -344,7 +337,8 @@ public class AzureDAO
 			builder.setParameter("targetFace", "");
 			// Request body
 
-			FileEntity reqEntity = new FileEntity(file, ContentType.APPLICATION_OCTET_STREAM);
+			//FileEntity reqEntity = new FileEntity(file, ContentType.APPLICATION_OCTET_STREAM);
+			ByteArrayEntity reqEntity = new ByteArrayEntity(imageByte);
 			request.setEntity(reqEntity);
 			HttpResponse response = httpclient.execute(request);
 			HttpEntity entity = response.getEntity();

@@ -319,7 +319,6 @@ public class ManterPessoaController
 	 * @return Lista de pessoas prováveis que tenham este rosto
 	 * @throws IOException
 	 */
-
 	@RequestMapping(method = RequestMethod.POST, value = "rest/pessoa/identifica", headers = "Accept=application/json")
 	public @ResponseBody String identificaPessoa(@RequestBody String foto, Model model) throws IOException
 	{
