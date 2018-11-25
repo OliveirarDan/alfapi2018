@@ -1,6 +1,5 @@
 package br.usjt.alfapi.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,160 +35,6 @@ public class ManterPessoaController
 	@Autowired
 	private EnderecoService enderecoService;
 
-	// NÃO ALTERAR
-	@RequestMapping("/")
-	public String iniciar()
-	{
-		return "index";
-	}
-
-	// NÃO ALTERAR
-	@RequestMapping("/index")
-	public String iniciarA()
-	{
-		return "index";
-	}
-
-	// NÃO ALTERAR
-	@RequestMapping("/novaPessoa")
-	public String novaPessoa()
-	{
-		return "NovaPessoa";
-	}
-
-	// NÃO ALTERAR
-	@Transactional
-	@RequestMapping("/inserirPessoa")
-	public String inserirPessoa(@Valid Pessoa pessoa, BindingResult erros, Model model)
-	{
-		try
-		{
-			if (!erros.hasErrors())
-			{
-				// insere e pega o endereço cadastrado (ID_endereco é necessário)
-				Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
-				endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
-				// Atualiza endereço de pessoa
-				pessoa.setEndereco(endereco);
-				// Insere pessoa no banco
-				pessoa = pessoaService.inserirPessoa(pessoa);
-				// Inserindo imagens da pessoa na API
-				pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho1.jpg");
-				pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho2.jpg");
-				pessoaService.inserirFotoPessoa(pessoa, "C://Pessoas/Ronaldinho/ronaldinho3.jpg");
-				// Treinando API após inserção de imagens
-				pessoaService.treinarApi();
-				// Identifica pessoa a partir de uma imagem
-				pessoaService.identificarPessoa("C://Pessoas/Ronaldinho/ronaldinho4.jpg");
-				// Manda o objeto pessoa atualizado para o model
-				model.addAttribute("pessoa", pessoa);
-				return "Resultado";
-			} else
-			{
-				return "NovaPessoa";
-			}
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-			model.addAttribute("erro", e);
-			return "Erro";
-		}
-	}
-	
-	
-
-	// NÃO ALTERAR
-	@Transactional
-	@RequestMapping("/inserirPessoaFoto64")
-	public String criarPessoaFoto64(@Valid Pessoa pessoa, @RequestParam(required=false,name="file") String string64, BindingResult erros,
-			Model model) {
-		try {
-			if (!erros.hasErrors()) {
-				// insere e pega o endereço cadastrado (ID_endereco é necessário)
-				Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
-				endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
-				// Atualiza endereço de pessoa
-				pessoa.setEndereco(endereco);
-				// Insere pessoa no banco
-				pessoa = pessoaService.inserirPessoa(pessoa);
-				
-				// Prepara a string do base64
-				String base64Image = string64.split(",")[1];
-				// This will decode the String which is encoded by using Base64 class
-				byte[] imageByte = Base64.decodeBase64(base64Image);
-
-				// salva imagem no servidor
-				String directory = "C:/teste/" + pessoa.getNome() + ".png";
-
-				// Convertendo Tipo de file
-				File foto = new File(directory);
-				foto.createNewFile();
-				FileOutputStream fos = new FileOutputStream(foto);
-				fos.write(imageByte);
-				fos.close();
-				
-				
-				// Inserindo imagens da pessoa na API
-				pessoaService.inserirFotoPessoaFile(pessoa, foto);
-				// Treinando API após inserção de imagens
-				pessoaService.treinarApi();
-				// Manda o objeto pessoa atualizado para o model
-				model.addAttribute("pessoa", pessoa);
-				return "Resultado";
-			} else {
-				return "NovaPessoa";
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			model.addAttribute("erro", e);
-			return "Erro";
-		}
-	}
-
-	// TESTE
-	@RequestMapping("/pegaFoto64")
-	public String pegaFoto64( Pessoa pessoa, @RequestParam(required=false,name="file") String string64, BindingResult erros, Model model) {
-		try {
-			if (!erros.hasErrors()) {
-				// Prepara a string do base64
-				String base64Image = string64.split(",")[1];
-				// This will decode the String which is encoded by using Base64 class
-				byte[] imageByte = Base64.decodeBase64(base64Image);
-				// salva imagem no servidor
-				String directory = "C:/teste/" + pessoa.getNome() + ".png";
-				// Convertendo Tipo de file
-				File foto = new File(directory);
-				foto.createNewFile();
-				FileOutputStream fos = new FileOutputStream(foto);
-				fos.write(imageByte);
-				fos.close();
-				pessoaService.identificarPessoa(foto);
-				System.out.println(pessoa.getNome());
-				return "Resultado";
-			} else {
-				System.out.println(pessoa.getNome());
-				
-				return "ruim";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("erro", e);
-			return "Erro";
-		}
-	}
-
-	
-	@RequestMapping("/identifica")
-	public String identifica() {
-		return "PegaFotos";
-	}
-
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * InserirPessoa - Insere uma pessoa no banco de dados e também na Azure.
@@ -339,5 +184,100 @@ public class ManterPessoaController
 		}
 
 	}
+	
+	
+	
+	
+	/*===========================================================================================	 
+	 * ==========================================================================================
+	 * ===================												=========================
+	 * ===================		MÉTODOS TEMPORARIOS, NAO CONSIDERAR 	=========================
+	 * ===================												=========================
+	 * ==========================================================================================
+	 * ==========================================================================================*/
 
+	
+	
+	
+	// NÃO ALTERAR
+	@Transactional
+	@RequestMapping("/inserirPessoaFoto64")
+	public String criarPessoaFoto64(@Valid Pessoa pessoa, @RequestParam(required=false,name="file") String string64, BindingResult erros,
+			Model model) {
+		try {
+			if (!erros.hasErrors()) {
+				// insere e pega o endereço cadastrado (ID_endereco é necessário)
+				Endereco endereco = enderecoService.inserirEndereco(pessoa.getEndereco());
+				endereco.setIdEndereco(pessoa.getEndereco().getIdEndereco());
+				// Atualiza endereço de pessoa
+				pessoa.setEndereco(endereco);
+				// Insere pessoa no banco
+				pessoa = pessoaService.inserirPessoa(pessoa);
+				
+				// Prepara a string do base64
+				String base64Image = string64.split(",")[1];
+				// This will decode the String which is encoded by using Base64 class
+				byte[] imageByte = Base64.decodeBase64(base64Image);
+
+				// salva imagem no servidor
+				String directory = "C:/teste/" + pessoa.getNome() + ".png";
+
+				// Convertendo Tipo de file
+				File foto = new File(directory);
+				foto.createNewFile();
+				FileOutputStream fos = new FileOutputStream(foto);
+				fos.write(imageByte);
+				fos.close();
+				
+				
+				// Inserindo imagens da pessoa na API
+				pessoaService.inserirFotoPessoaFile(pessoa, foto);
+				// Treinando API após inserção de imagens
+				pessoaService.treinarApi();
+				// Manda o objeto pessoa atualizado para o model
+				model.addAttribute("pessoa", pessoa);
+				return "Resultado";
+			} else {
+				return "NovaPessoa";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			model.addAttribute("erro", e);
+			return "Erro";
+		}
+	}
+
+	// TESTE
+	@RequestMapping("/pegaFoto64")
+	public String pegaFoto64( Pessoa pessoa, @RequestParam(required=false,name="file") String string64, BindingResult erros, Model model) {
+		try {
+			if (!erros.hasErrors()) {
+				// Prepara a string do base64
+				String base64Image = string64.split(",")[1];
+				// This will decode the String which is encoded by using Base64 class
+				byte[] imageByte = Base64.decodeBase64(base64Image);
+				// salva imagem no servidor
+				String directory = "C:/teste/" + pessoa.getNome() + ".png";
+				// Convertendo Tipo de file
+				File foto = new File(directory);
+				foto.createNewFile();
+				FileOutputStream fos = new FileOutputStream(foto);
+				fos.write(imageByte);
+				fos.close();
+				pessoaService.identificarPessoa(foto);
+				System.out.println(pessoa.getNome());
+				return "Resultado";
+			} else {
+				System.out.println(pessoa.getNome());
+				
+				return "ruim";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("erro", e);
+			return "Erro";
+		}
+	}
+	
+	
 }

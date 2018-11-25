@@ -1,26 +1,21 @@
 package br.usjt.alfapi.model.entity;
 
-
-
-
 public class Azure
 {
-
 	// Atributos
 	private String codAzure;
 
-	
 	// Construtores
 	public Azure()
 	{
-		
+
 	}
 
 	public Azure(String codAzure)
 	{
 		this.codAzure = codAzure;
 	}
-	
+
 	// Métodos Get e Set
 	public String getCodAzure()
 	{
@@ -31,12 +26,4 @@ public class Azure
 	{
 		this.codAzure = codAzure;
 	}
-
-	
-
-	// Método ToString
-	
-
-	
-
 }

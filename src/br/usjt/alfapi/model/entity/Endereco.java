@@ -7,14 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="endereco")
-public class Endereco {
+@Table(name = "endereco")
+public class Endereco
+{
 
 	// Atributos
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEndereco;
-	
+
 	private String cep;
 	private String tipoDeLogradouro;
 	private String endereco;
@@ -25,12 +26,14 @@ public class Endereco {
 	private String pais;
 
 	// Construtores
-	public Endereco() {
+	public Endereco()
+	{
 		// TODO Auto-generated constructor stub
 	}
 
 	public Endereco(int idEndereco, String cep, String tipoDeLogradouro, String endereco, int numero, String bairro,
-			String cidade, String estado, String pais) {
+			String cidade, String estado, String pais)
+	{
 		super();
 		this.idEndereco = idEndereco;
 		this.cep = cep;
@@ -44,81 +47,100 @@ public class Endereco {
 	}
 
 	// Métodos Getters e Setters
-	public int getIdEndereco() {
+	public int getIdEndereco()
+	{
 		return idEndereco;
 	}
 
-	public void setIdEndereco(int idEndereco) {
+	public void setIdEndereco(int idEndereco)
+	{
 		this.idEndereco = idEndereco;
 	}
 
-	public String getCep() {
+	public String getCep()
+	{
 		return cep;
 	}
 
-	public void setCep(String cep) {
+	public void setCep(String cep)
+	{
 		this.cep = cep;
 	}
 
-	public String getTipoDeLogradouro() {
+	public String getTipoDeLogradouro()
+	{
 		return tipoDeLogradouro;
 	}
 
-	public void setTipoDeLogradouro(String tipoDeLogradouro) {
+	public void setTipoDeLogradouro(String tipoDeLogradouro)
+	{
 		this.tipoDeLogradouro = tipoDeLogradouro;
 	}
 
-	public String getEndereco() {
+	public String getEndereco()
+	{
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(String endereco)
+	{
 		this.endereco = endereco;
 	}
 
-	public int getNumero() {
+	public int getNumero()
+	{
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(int numero)
+	{
 		this.numero = numero;
 	}
 
-	public String getBairro() {
+	public String getBairro()
+	{
 		return bairro;
 	}
 
-	public void setBairro(String bairro) {
+	public void setBairro(String bairro)
+	{
 		this.bairro = bairro;
 	}
 
-	public String getCidade() {
+	public String getCidade()
+	{
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(String cidade)
+	{
 		this.cidade = cidade;
 	}
 
-	public String getEstado() {
+	public String getEstado()
+	{
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(String estado)
+	{
 		this.estado = estado;
 	}
 
-	public String getPais() {
+	public String getPais()
+	{
 		return pais;
 	}
 
-	public void setPais(String pais) {
+	public void setPais(String pais)
+	{
 		this.pais = pais;
 	}
 
 	// Método toString
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Endereco [idEndereco=" + idEndereco + ", cep=" + cep + ", tipoDeLogradouro=" + tipoDeLogradouro
 				+ ", endereco=" + endereco + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade
 				+ ", estado=" + estado + ", pais=" + pais + "]";
