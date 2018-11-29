@@ -5,6 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpEntity;
@@ -41,7 +45,7 @@ public class AzureDAO
 	private PessoaService pessoaService;
 
 	// ChaveAzure
-	private static final String subscriptionKey = "d311017b91744235992d2be37239bd12";
+	private static final String subscriptionKey = "7fd3ca785d244cd397458187788f108c";
 
 	/**
 	 * detectaPessoa - Esse método detecta pessoa carregando um arquivo (foto)
@@ -184,6 +188,11 @@ public class AzureDAO
 	{
 		String retorno = null;
 		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/identify";
+		String personid = null;
+		double confidence;
+		
+		Pessoa pessoa = new Pessoa();
+		ArrayList<Pessoa> pessoas = new ArrayList<>();
 
 		HttpClient httpclient = new DefaultHttpClient();
 		try
@@ -206,46 +215,32 @@ public class AzureDAO
 			HttpResponse response = httpclient.execute(request);
 			HttpEntity entity = response.getEntity();
 			String json = EntityUtils.toString(response.getEntity());
-			json = json.replace("[", "").replace("]", ""); 
 			retorno = json;
 			System.out.println("IdentidicaPessoa, pessoas com este rosto:" + "\n" + json);
 			
 			
-			/*JSONObject teste = new JSONObject(json);
-			String personId = teste.getJSONObject("candidates").getString("personId");
-			System.out.println("Person ID pego: " + personId);*/
+			
+			JSONArray jsonArray = new JSONArray(json);
+			JSONArray candidates = jsonArray.getJSONObject(0).getJSONArray("candidates");
+			System.out.println("Candidatos:" + candidates.toString());
+			System.out.println("Qtd de candidatos" + candidates.length());
 			
 			
-			
-
-
-			// Tratamento do response
-
-			final ObjectNode node = new ObjectMapper().readValue(json, ObjectNode.class);
-			if (node.has("personId"))
-			{
-				String personId = node.get("personId").toString().replaceAll("\"", "");
-				System.out.println("Person ID pego: " + personId);
-			}
-			
-			/*if (entity != null)
-			{
-				JSONObject teste = new JSONObject(json);
-				String personId = teste.getString("personId");
-				System.out.println("Person ID pego: " + personId);
-			}*/
-			
-			
-			
-			
-			/*String personId = jsonArray.getString(1);
-			System.out.println("Person ID pego: " + personId);
-			
-			Pessoa pessoa = pessoaService.buscarPessoaPeloPersonId(personId);
-			System.out.println("Pessoa retornada: " + pessoa);*/
-
-			
-			/**/
+	        for(int i = 0; i<candidates.length(); i++) {
+	        	
+	        	personid = candidates.getJSONObject(i).getString("personId");
+	        	System.out.println("Personid " + i + ": "+ personid);
+	        	
+	        	confidence = candidates.getJSONObject(i).getDouble("confidence");
+	            pessoa.setConfidence(confidence);
+	            System.out.println("Confidence " + i + ": "+ pessoa.getConfidence());
+	            
+	            pessoa = pessoaService.buscarPessoaPeloPersonId(personid);
+	            System.out.println("Pessoa: " + pessoa);
+	            pessoas.add(pessoa);            
+	        }
+	        
+	        
 
 		} catch (Exception e)
 		{

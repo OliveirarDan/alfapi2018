@@ -31,6 +31,7 @@ public class Pessoa extends Azure
 	private String telSecundario;
 	private String codAzure;
 	private String foto;
+	private double confidence;
 
 	@NotNull
 	@OneToOne
@@ -201,6 +202,16 @@ public class Pessoa extends Azure
 				+ ", registrosec=" + registrosec + ", email=" + email + ", dataNascimento=" + dataNascimento
 				+ ", genero=" + genero + ", telResidencial=" + telResidencial + ", telSecundario=" + telSecundario
 				+ ", endereco=" + endereco + "]";
+	}
+
+	public double getConfidence()
+	{
+		return confidence;
+	}
+
+	public void setConfidence(double confidence)
+	{
+		this.confidence = confidence;
 	}
 
 }

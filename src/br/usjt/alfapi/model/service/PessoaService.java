@@ -106,7 +106,7 @@ public class PessoaService
 	
 	public Pessoa buscarPessoaPeloPersonId(String personId)
 	{
-		return pessoaDao.buscarPessoaPeloPersonId(personId);
+		return pessoaDao.buscarPessoaPeloPersonId2(personId);
 	}
 
 	public List<Pessoa> listarPessoas(String chave) throws IOException

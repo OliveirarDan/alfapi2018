@@ -44,6 +44,18 @@ public class PessoaDAO
 		
 		return manager.find(Pessoa.class, chave);
 	}
+	
+	public Pessoa buscarPessoaPeloPersonId2 (String chave) 
+	{
+				
+		String jpql = "select f from Pessoa f where f.codAzure like :chave";
+		Query query = manager.createQuery(jpql);
+		query.setParameter("chave", "%" + chave + "%");
+
+		Object pessoa = query.getSingleResult();
+
+		return (Pessoa) pessoa;
+	}
 
 	public List<Pessoa> listarPessoas(String chave) throws IOException
 	{
