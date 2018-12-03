@@ -195,18 +195,20 @@ public class Pessoa extends Azure
 	}
 
 	// Método toString
-	@Override
-	public String toString()
-	{
-		return "Pessoa [idPessoa=" + idPessoa + ", nome=" + nome + ", sobrenome=" + sobrenome + ", cpf=" + cpf
-				+ ", registrosec=" + registrosec + ", email=" + email + ", dataNascimento=" + dataNascimento
-				+ ", genero=" + genero + ", telResidencial=" + telResidencial + ", telSecundario=" + telSecundario
-				+ ", endereco=" + endereco + "]";
-	}
+	
 
 	public double getConfidence()
 	{
 		return confidence;
+	}
+
+	@Override
+	public String toString() {
+		return "Pessoa [idPessoa=" + idPessoa + ", nome=" + nome + ", sobrenome=" + sobrenome + ", cpf=" + cpf
+				+ ", registrosec=" + registrosec + ", email=" + email + ", dataNascimento=" + dataNascimento
+				+ ", genero=" + genero + ", telResidencial=" + telResidencial + ", telSecundario=" + telSecundario
+				+ ", codAzure=" + codAzure + ", foto=" + foto + ", confidence=" + confidence + ", endereco=" + endereco
+				+ "]";
 	}
 
 	public void setConfidence(double confidence)
