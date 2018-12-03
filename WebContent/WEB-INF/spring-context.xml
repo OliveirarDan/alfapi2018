@@ -27,9 +27,9 @@
 	</bean>
 	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3307/alfapidb"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="781080"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/alfapidb"></property>
+		<property name="username" value="alunos"></property>
+		<property name="password" value="alunos"></property>
 	</bean>
 	<!-- gerenciamento de transacao pelo spring -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

@@ -137,7 +137,8 @@ public class PessoaService
 	 * @param file - Foto selecionada para fazer a identificação.
 	 */
 	public void identificarPessoa(File file) {
-		azureDao.identificaPessoa(azureDao.detectaPessoaFile(file));
+		System.out.println(azureDao.identificaPessoaTeste(azureDao.detectaPessoaFile(file)));
+		
 
 	}
 	

@@ -42,7 +42,7 @@ import br.usjt.alfapi.model.service.PessoaService;
 public class AzureDAO
 {
 	@Autowired
-	private PessoaService pessoaService;
+	private PessoaDAO pessoaDAO;
 
 	// ChaveAzure
 	private static final String subscriptionKey = "7fd3ca785d244cd397458187788f108c";
@@ -219,24 +219,30 @@ public class AzureDAO
 			System.out.println("IdentidicaPessoa, pessoas com este rosto:" + "\n" + json);
 			
 			
-			
+			// AQUI É CRIADO UM ARRAY JSON COM AS INFORMAÇÕES DOS CANDIDADOS
 			JSONArray jsonArray = new JSONArray(json);
 			JSONArray candidates = jsonArray.getJSONObject(0).getJSONArray("candidates");
 			System.out.println("Candidatos:" + candidates.toString());
 			System.out.println("Qtd de candidatos" + candidates.length());
 			
 			
+			//ITERAÇÃO PARA PERCORRER O VETOR, SALVAR O CONFIDENCE (PROBABILIDADE DE SER A PESSOA) E CAPTAR O PERSON ID PARA USAR NO MÉTODO buscarPessoaPeloPersonId
 	        for(int i = 0; i<candidates.length(); i++) {
 	        	
+	        	//aqui é capturado o valor de person id
 	        	personid = candidates.getJSONObject(i).getString("personId");
 	        	System.out.println("Personid " + i + ": "+ personid);
 	        	
+	        	//aqui é capturado o valor de confidence e gravado no objeto pessoa (veja a bean)
 	        	confidence = candidates.getJSONObject(i).getDouble("confidence");
 	            pessoa.setConfidence(confidence);
 	            System.out.println("Confidence " + i + ": "+ pessoa.getConfidence());
 	            
-	            pessoa = pessoaService.buscarPessoaPeloPersonId(personid);
+	            //aqui ocorre o problema, o pessoaService fica null, segundo o Bossini é um problema naa injeção de dependencia
+	            pessoa = pessoaDAO.buscarPessoaPeloPersonId(personid);
 	            System.out.println("Pessoa: " + pessoa);
+	            
+	            //AQUI A PESSOA RETORNADA DEVE SER INSERIDA EM UM ARRAY DE PESSOAS PARA RETORNAR NO ENDPOINT
 	            pessoas.add(pessoa);            
 	        }
 	        
@@ -469,4 +475,67 @@ public class AzureDAO
 		return retorno;
 	}
 
+	
+	
+	
+	
+	
+	//--------------------------- testando identifica pessoa -------------------------
+	
+
+	/**
+	 * identificaPessoa - Esse método identifica uma pessoa no grupo a partir do id
+	 * recebido do método detectaPessoa
+	 * 
+	 * @param idFoto
+	 *            - id da foto gerado no detectaPessoa.
+	 */
+	public String identificaPessoaTeste(String foto)
+	{
+	
+		String endPoint = "https://brazilsouth.api.cognitive.microsoft.com/face/v1.0/identify";
+		String respotaTratada = null;
+		HttpClient httpclient = new DefaultHttpClient();
+		try
+		{
+			URIBuilder builder = new URIBuilder(endPoint);
+			URI uri = builder.build();
+			HttpPost request = new HttpPost(uri);
+			request.setHeader("Content-Type", "application/json");
+			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+			// Request body
+			StringEntity reqEntity = new StringEntity("{\n" 
+					+ "    \"personGroupId\": \"grupopii\",\n"
+					+ "    \"faceIds\": [\n" 
+					+ "        \"" 
+					+ foto + "\"\n" 
+					+ "    ],\n"
+					+ "    \"maxNumOfCandidatesReturned\": 1,\n" 
+					+ "    \"confidenceThreshold\": 0.5\n" + "}");
+			request.setEntity(reqEntity);
+			HttpResponse response = httpclient.execute(request);
+			HttpEntity entity = response.getEntity();
+			String json = EntityUtils.toString(response.getEntity());
+			
+		
+			
+			if (response != null) {
+				String jsonString = json;
+				JSONArray jsonArray = new JSONArray(jsonString);
+				JSONArray candidates = jsonArray.getJSONObject(0).getJSONArray("candidates");
+				for (int i = 0; i < candidates.length(); i++) {
+					respotaTratada = candidates.getJSONObject(i).getString("personId");
+					
+				}
+				
+			}
+			return respotaTratada;
+
+		} catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return respotaTratada;
+	}
+	
 }

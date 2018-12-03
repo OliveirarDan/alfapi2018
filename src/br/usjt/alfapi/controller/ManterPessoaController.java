@@ -57,6 +57,9 @@ public class ManterPessoaController
 		pessoa.setEndereco(endereco);
 		// Insere a pessoa no BD e na Azure
 		pessoa = pessoaService.inserirPessoa(pessoa);
+		
+		//treinaPessoa
+		pessoaService.treinarApi();
 
 		// Adiciona Pessoa como um atributo do model
 		model.addAttribute("pessoa", pessoa);
@@ -165,18 +168,26 @@ public class ManterPessoaController
 	 * @throws IOException
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "rest/pessoa/identifica", headers = "Accept=application/json")
-	public @ResponseBody String identificaPessoa(@RequestBody String foto, Model model) throws IOException
+	public @ResponseBody Pessoa identificaPessoa(@RequestBody String foto, Model model) throws IOException
 	{
 		try
 		{
 			// Instancia o AzureDAO e aciona método que treina o grupo
 			AzureDAO azureDao = new AzureDAO();
-			azureDao.treinar();
+			
+			//azureDao.treinar();
 
 			// Aqui é acionado o IdentificaPessoa que precisa de um FaceID, obtido através do DetectaPessoa
-			String response = azureDao.identificaPessoa(azureDao.detectaPessoa(foto));
-
-			return response;
+			String personId = azureDao.identificaPessoaTeste(azureDao.detectaPessoa(foto));
+			System.out.println(personId);
+			Pessoa pessoaIdentificada = pessoaService.buscarPessoaPeloPersonId(personId);
+			System.out.println(pessoaIdentificada.toString());
+			
+			String response = null ;
+			//System.out.println(response);
+			
+			
+			return pessoaIdentificada;
 
 		} catch (Exception e)
 		{
