@@ -47,21 +47,6 @@ public class PessoaService
 	}
 
 	/**
-	 * inserirFotoPessoa - Esse método recebe 1 foto (endereço em string) e envia
-	 * para o azure
-	 * 
-	 * @param pessoa
-	 * @param foto
-	 *            - Endereço da foto
-	 * @throws IOException
-	 */
-	public void inserirFotoPessoa(Pessoa pessoa, String foto) throws IOException
-	{
-		azureDao.insereFotoPessoaLocal(pessoa.getCodAzure(), (pessoa.getNome() + " " + pessoa.getSobrenome()), foto);
-	}
-
-	
-	/**
 	 * treinarAPI - Esse método faz a API da azure treinar. Reconhece as fotos já
 	 * carregadas e aumenta a precisão da identificação.
 	 */
@@ -77,14 +62,12 @@ public class PessoaService
 	 * 
 	 * @param urlFoto
 	 *            - Foto selecionada para fazer a identificação.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void identificarPessoa(String foto) throws IOException
 	{
 		azureDao.identificaPessoa(azureDao.detectaPessoa(foto));
 	}
-	
-	
 
 	@Transactional
 	public Pessoa atualizarPessoa(Pessoa pessoa) throws IOException
@@ -103,10 +86,10 @@ public class PessoaService
 	{
 		return pessoaDao.buscaPessoas(id);
 	}
-	
+
 	public Pessoa buscarPessoaPeloPersonId(String personId)
 	{
-		return pessoaDao.buscarPessoaPeloPersonId2(personId);
+		return pessoaDao.buscarPessoaPeloPersonId(personId);
 	}
 
 	public List<Pessoa> listarPessoas(String chave) throws IOException
@@ -118,40 +101,5 @@ public class PessoaService
 	{
 		return pessoaDao.listarPessoas();
 	}
-	
-	
-	/*===========================================================================================	 
-	 * ==========================================================================================
-	 * ===================												=========================
-	 * ===================		MÉTODOS TEMPORARIOS, NAO CONSIDERAR 	=========================
-	 * ===================												=========================
-	 * ==========================================================================================
-	 * ==========================================================================================*/
-	
-	
-	
-	/**
-	 * identificarPessoaFile - Esse método recebe o endereço de uma foto.
-	 * Chama o detecta pessoa que realiza a detecção da foto e retorna um ID.
-	 * O ID é utilizado no indentify para reconhecer as pessoas parecidas em um grupo.
-	 * @param file - Foto selecionada para fazer a identificação.
-	 */
-	public void identificarPessoa(File file) {
-		System.out.println(azureDao.identificaPessoaTeste(azureDao.detectaPessoaFile(file)));
-		
-
-	}
-	
-	
-	/**
-	 * inserirFotoPessoaFile - Esse método recebe 1 foto (endereço em string) e envia para o azure
-	 * @param pessoa 
-	 * @param foto - Arquivo da foto
-	 * @throws IOException
-	 */
-	public void inserirFotoPessoaFile (Pessoa pessoa, File foto) throws IOException{
-		azureDao.insereFotoPessoaFile(pessoa.getCodAzure(), (pessoa.getNome()+ " " + pessoa.getSobrenome()), foto);
-	}
-	
 
 }

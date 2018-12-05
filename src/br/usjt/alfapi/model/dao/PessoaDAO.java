@@ -38,14 +38,9 @@ public class PessoaDAO
 	{
 		manager.remove(manager.find(Pessoa.class, id));
 	}
+
 	
 	public Pessoa buscarPessoaPeloPersonId (String chave) 
-	{
-		
-		return manager.find(Pessoa.class, chave);
-	}
-	
-	public Pessoa buscarPessoaPeloPersonId2 (String chave) 
 	{
 				
 		String jpql = "select f from Pessoa f where f.codAzure like :chave";
